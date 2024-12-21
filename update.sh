@@ -28,8 +28,12 @@ else
 	if [[ ! -L "$DIR_PATH/factorio/saves" ]]; then
 		`ln -s "$DIR_PATH/saves" "$DIR_PATH/factorio/saves"`
 	fi
-	if [[ ! -L "$DIR_PATH/factorio/data/server-settings.json" ]]; then
-		`ln -s "$DIR_PATH/settings/server-settings.json" "$DIR_PATH/factorio/data"`
+
+	if [[ -d "$DIR_PATH/settings" ]]; then
+		for setting in "$DIR_PATH/settings"/*
+		do
+			`ln -s "$setting" "$DIR_PATH/factorio/data"`
+		done
 	fi
 
 	echo "Update complete: ${CURR_VERSION} -> ${UPDATE_VERSION}"
