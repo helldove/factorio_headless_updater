@@ -32,7 +32,10 @@ else
 	if [[ -d "$DIR_PATH/settings" ]]; then
 		for setting in "$DIR_PATH/settings"/*
 		do
-			`ln -s "$setting" "$DIR_PATH/factorio/data"`
+			LINK_NAME=$(echo -n $setting | sed -E 's/([^\/]+\/)*//g')
+			if [[ ! -L "$DIR_PATH/factorio/data/$LINK_NAME" ]]; then
+				`ln -s "$setting" "$DIR_PATH/factorio/data"`
+			fi
 		done
 	fi
 
